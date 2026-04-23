@@ -1,28 +1,7 @@
 import fs from 'fs';
 import {question} from "readline-sync";
 import NamesParse from "./Todos/Todos.js";
-
-class PartIndex {
-
-    constructor(index_1, index_2, index_3) {
-
-        this.index_1 = index_1;
-        this.index_2 = index_2;
-        this.index_3 = index_3;
-    }
-
-    getOne() {
-        return this.index_1;
-    }
-
-    getTwo() {
-        return this.index_2;
-    }
-
-    getThree() {
-        return this.index_3;
-    }
-}
+import PartIndex from "./Types/Types.ts";
 
 (async() => {
 

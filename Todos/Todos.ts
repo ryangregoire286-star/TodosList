@@ -1,13 +1,15 @@
 class NamesParse {
     private readonly name: string
 
+
     constructor(name: any) {
         this.name = name;
     }
 
-    get() {
+    public get() {
         return this.name;
     }
 }
 
-export default  NamesParse;
+
+export default {NamesParse};

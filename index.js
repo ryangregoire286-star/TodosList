@@ -1,31 +1,62 @@
 import fs from 'fs';
 import {question} from "readline-sync";
-import NamesParse from "./Todos/Todos";
+import NamesParse from "./Todos/Todos.js";
 
-let names = [];
+class PartIndex {
 
-async function main() {
+    constructor(index_1, index_2, index_3) {
 
-    const listLength = Number(question("Enter Length: "));
+        this.index_1 = index_1;
+        this.index_2 = index_2;
+        this.index_3 = index_3;
+    }
 
-    for (let i = 0; i < listLength; i++) {
+    getOne() {
+        return this.index_1;
+    }
 
-        const read = question("Enter Todo: ");
+    getTwo() {
+        return this.index_2;
+    }
 
-        names.push(read)
-
-
-        for (const name of names) {
-            const namesPar = new NamesParse(name);
-            console.log(upper("Todo " + i + ": " + namesPar.get()))
-            fs.writeFileSync("todos.txt", `Todos ${i}: ${namesPar.get()}`);
-        }
+    getThree() {
+        return this.index_3;
     }
 }
 
+(async() => {
+
+    for (let i = 0; i < 1; i++) {
+
+        const index = new PartIndex(
+            "Enter Todo 1: ",
+            "Enter Todo 2: ",
+            "Enter Todo 3: ",
+        )
+
+        const todoListed1 = question(index.getOne());
+        const todoListed2 = question(index.getTwo());
+        const todoListed3 = question(index.getThree());
+        let names = [todoListed1, todoListed2, todoListed3];
+
+        const values = names.values()
+
+        for await (const name of values) {
+            const namesPar = new NamesParse.NamesParse(name);
+            i += 1;
+            console.log(upper("Todo " + i + ": " + namesPar.get()))
+            const deleteDate = question("Do You Want to Remove Current Data: ");
+            if (deleteDate.includes("N")) {
+                fs.appendFileSync("todos.txt", ``);
+                break;
+
+            } else {
+                fs.appendFileSync("todos.txt", `Todos ${i}: ${upper(namesPar.get())}\n`);
+            }
+        }
+    }
+})();
 
 const upper = (a) => {
     return a.toUpperCase()
 }
-
-main().then(a => a);
